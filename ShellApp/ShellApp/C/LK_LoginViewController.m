@@ -9,11 +9,13 @@
 #import "LK_LoginViewController.h"
 #import "MBProgressHUD.h"
 #import "PolicyViewController.h"
+#import "SettingView.h"
 
 #define iLoginTime 30
 
 @interface LK_LoginViewController ()
 @property (nonatomic, strong) UIButton *settingButton;
+@property (nonatomic,strong) UIImageView *bgView;
 @property (nonatomic, strong) UIImageView *bgIconView;
 @property (nonatomic, strong) UIImageView *logoIconView;
 @property (nonatomic, strong) UITextField *emailFiled;
@@ -56,19 +58,45 @@
 
 #pragma mark ----- UI
 - (void)drawUIWithComplete{
-    [self.view addSubview:self.bgIconView];
+    [self.view addSubview:self.bgView];
+    [self.view addSubview:self.settingButton];
     [self.view addSubview:self.logoIconView];
     [self.view addSubview:self.emailFiled];
     [self.view addSubview:self.pwdFiled];
     [self.view addSubview:self.loginBtn];
 }
-
-- (UIImageView *)bgIconView {
-    if (!_bgIconView) {
-        _bgIconView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _bgIconView.backgroundColor = [UIColor whiteColor];
+-(UIImageView *)bgView{
+    if (!_bgView) {
+        _bgView = [[UIImageView alloc]initWithFrame:self.view.frame];
+        _bgView.image = [UIImage imageNamed:@"back"];
     }
-    return _bgIconView;
+    return _bgView;
+}
+- (UIButton *)settingButton {
+    if (!_settingButton) {
+        _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _settingButton.frame = CGRectMake(GetWidthNum(5), STATUS_BAR_HEIGHT, GetWidthNum(50), GetWidthNum(50));
+        [_settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
+        [_settingButton addTarget:self action:@selector(showServer) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _settingButton;
+}
+
+- (void)showServer {
+     [self.view endEditing:YES];
+       SettingView *settingView = [[SettingView alloc] initWithTitle:@"请设置服务器" cancelBtn:@"取消" sureBtn:@"确定" btnClickBlock:^(NSInteger index,NSString *ipStr,NSString *firstText) {
+           if (index == 0) {
+               NSLog(@"取消");
+           }else if (index == 1){
+               [[NSUserDefaults standardUserDefaults] setObject:ipStr forKey:KSERVERIP];
+               [[NSUserDefaults standardUserDefaults] setObject:firstText forKey:KSERVERPORT];
+               [[NSUserDefaults standardUserDefaults] synchronize];
+               NSString *port = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERPORT];
+               NSString *ip = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
+               NSLog(@"ip=%@,终端端口=%@",ip,port);
+           }
+       }];
+       [settingView show];
 }
 
 - (UIImageView *)logoIconView {
@@ -108,12 +136,12 @@
 -(UITextField *)getTextFieldWithplaceText:(NSString *)placeText withImageName:(NSString *)imageName{
     UITextField *textField = [[UITextField alloc] init];
     textField.textAlignment = NSTextAlignmentLeft;
-    textField.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    textField.layer.borderColor = [UIColor whiteColor].CGColor;
     textField.layer.borderWidth = .5f;
     textField.layer.cornerRadius = 5.0f;
-    textField.textColor = [UIColor lightGrayColor];
+    textField.textColor = [UIColor whiteColor];
     textField.font = [UIFont systemFontOfSize:16];
-    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeText attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeText attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GetWidthNum(34), GetWidthNum(20))];
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, GetWidthNum(18), GetWidthNum(18))];
     headView.image = [UIImage imageNamed:imageName];

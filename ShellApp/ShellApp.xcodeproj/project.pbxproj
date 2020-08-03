@@ -10,6 +10,7 @@
 		D60F27B924C146C200B6B828 /* LK_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D60F27B824C146C200B6B828 /* LK_LoginViewController.m */; };
 		D60F27BC24C1476400B6B828 /* UIView+XDFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = D60F27BB24C1476400B6B828 /* UIView+XDFrame.m */; };
 		D60F27C124C148F400B6B828 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D60F27BF24C148F400B6B828 /* CommonUtil.m */; };
+		D680423E24D8009200526412 /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D680423D24D8009200526412 /* SettingView.m */; };
 		D699AD5024BD46DD00DC5F16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D699AD4F24BD46DD00DC5F16 /* AppDelegate.m */; };
 		D699AD5624BD46DD00DC5F16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D699AD5524BD46DD00DC5F16 /* ViewController.m */; };
 		D699AD5924BD46DD00DC5F16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D699AD5724BD46DD00DC5F16 /* Main.storyboard */; };
@@ -50,6 +51,8 @@
 		D60F27BE24C148C800B6B828 /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		D60F27BF24C148F400B6B828 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
 		D60F27C024C148F400B6B828 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		D680423C24D7FFA700526412 /* SettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingView.h; sourceTree = "<group>"; };
+		D680423D24D8009200526412 /* SettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingView.m; sourceTree = "<group>"; };
 		D699AD4B24BD46DD00DC5F16 /* 智慧海绵.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "智慧海绵.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D699AD4E24BD46DD00DC5F16 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D699AD4F24BD46DD00DC5F16 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,6 +103,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D680423924D7E48100526412 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				D680423C24D7FFA700526412 /* SettingView.h */,
+				D680423D24D8009200526412 /* SettingView.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		D680423A24D7E48A00526412 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				D60F27BE24C148C800B6B828 /* Constant.h */,
+				D60F27C024C148F400B6B828 /* CommonUtil.h */,
+				D60F27BF24C148F400B6B828 /* CommonUtil.m */,
+				D60F27BA24C1476400B6B828 /* UIView+XDFrame.h */,
+				D60F27BB24C1476400B6B828 /* UIView+XDFrame.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		D680423B24D7FF7700526412 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				D60F27B724C146C200B6B828 /* LK_LoginViewController.h */,
+				D60F27B824C146C200B6B828 /* LK_LoginViewController.m */,
+				D699AD5424BD46DD00DC5F16 /* ViewController.h */,
+				D699AD5524BD46DD00DC5F16 /* ViewController.m */,
+				D699AD8424BD497F00DC5F16 /* PolicyViewController.h */,
+				D699AD8324BD497F00DC5F16 /* PolicyViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
 		D699AD4224BD46DD00DC5F16 = {
 			isa = PBXGroup;
 			children = (
@@ -124,21 +161,13 @@
 		D699AD4D24BD46DD00DC5F16 /* ShellApp */ = {
 			isa = PBXGroup;
 			children = (
+				D680423B24D7FF7700526412 /* C */,
+				D680423A24D7E48A00526412 /* Util */,
+				D680423924D7E48100526412 /* V */,
 				D699AD8624BD4B5500DC5F16 /* MBProgressHUD */,
 				D699AD4E24BD46DD00DC5F16 /* AppDelegate.h */,
 				D699AD4F24BD46DD00DC5F16 /* AppDelegate.m */,
-				D60F27B724C146C200B6B828 /* LK_LoginViewController.h */,
-				D60F27B824C146C200B6B828 /* LK_LoginViewController.m */,
-				D60F27BA24C1476400B6B828 /* UIView+XDFrame.h */,
-				D60F27BB24C1476400B6B828 /* UIView+XDFrame.m */,
-				D699AD5424BD46DD00DC5F16 /* ViewController.h */,
-				D699AD5524BD46DD00DC5F16 /* ViewController.m */,
-				D699AD8424BD497F00DC5F16 /* PolicyViewController.h */,
-				D699AD8324BD497F00DC5F16 /* PolicyViewController.m */,
-				D60F27C024C148F400B6B828 /* CommonUtil.h */,
-				D60F27BF24C148F400B6B828 /* CommonUtil.m */,
 				D60F27BD24C147D700B6B828 /* PrefixHeader.pch */,
-				D60F27BE24C148C800B6B828 /* Constant.h */,
 				D699AD5724BD46DD00DC5F16 /* Main.storyboard */,
 				D699AD5A24BD46DE00DC5F16 /* Assets.xcassets */,
 				D699AD5C24BD46DE00DC5F16 /* LaunchScreen.storyboard */,
@@ -320,6 +349,7 @@
 				D699AD8A24BD4B5500DC5F16 /* MBProgressHUD.m in Sources */,
 				D60F27B924C146C200B6B828 /* LK_LoginViewController.m in Sources */,
 				D60F27BC24C1476400B6B828 /* UIView+XDFrame.m in Sources */,
+				D680423E24D8009200526412 /* SettingView.m in Sources */,
 				D699AD5024BD46DD00DC5F16 /* AppDelegate.m in Sources */,
 				D60F27C124C148F400B6B828 /* CommonUtil.m in Sources */,
 				D699AD6124BD46DE00DC5F16 /* main.m in Sources */,
