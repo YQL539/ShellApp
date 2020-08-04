@@ -18,12 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"";
-    NSURL *url = [NSURL URLWithString:@"http://yfstrug.wicp.net/iwa-admin/app/index/home.htm"];
-//    if (![self.urlStr containsString:@"http"]) {
-//        self.urlStr = [NSString stringWithFormat:@"http://%@",self.urlStr];
-//    }
-//
-//    NSURL *url = [NSURL URLWithString:self.urlStr];
+    NSString *serverIp = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
+    if (!serverIp) {
+        [self showAlertWithTitle:@"提示" Infomation:@"请输入服务器地址" shoeInViewController:self completedAction:nil];
+    }
+    
+    NSString *requestUrlString = [NSString stringWithFormat:@"http://%@/iwa-admin/app/index/home.htm",serverIp];
+    NSURL *url = [NSURL URLWithString:requestUrlString];
     self.webView =[[WKWebView alloc]init];
     self.webView.navigationDelegate =self;
     self.webView.scrollView.scrollEnabled = NO;
@@ -90,5 +91,15 @@
 {
     NSLog(@"======deallocaboutView");
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+}
+
+-(void)showAlertWithTitle:(NSString *)Title
+               Infomation:(NSString *)information
+     shoeInViewController:(UIViewController *)viewController
+          completedAction:(void(^_Nullable)(UIAlertAction *action))showAction {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:Title message:information preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:showAction];
+    [alertController addAction:alertAction];
+    [viewController presentViewController:alertController animated:YES completion:nil];
 }
 @end

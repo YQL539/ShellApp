@@ -60,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.iMargin = 60.f;
+    [[NSUserDefaults standardUserDefaults] setObject:@"yfstrug.wicp.net" forKey:KSERVERIP];
     [self drawUIWithComplete];
 }
 
@@ -180,7 +181,6 @@
     }
     return _loginBtn;
 }
-
 #pragma mark=========== 网络请求====================
 //确定
 - (void)loginClicked{
@@ -201,7 +201,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *serverIp = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
         if (!serverIp) {
-            serverIp = @"yfstrug.wicp.net";
+            [weakSelf showAlertWithTitle:@"提示" Infomation:@"请输入服务器地址" shoeInViewController:self completedAction:nil];
         }
         
         NSString *requestUrlString = [NSString stringWithFormat:@"http://%@/iwa-admin/app/login/loginSub.htm",serverIp];
@@ -259,4 +259,6 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
+
 @end
