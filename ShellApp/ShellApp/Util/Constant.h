@@ -14,6 +14,9 @@
 ////配置IP和端口
 #define KSERVERIP           @"SERVERIP"
 #define KSERVERPORT         @"ServerPORT"
+#define KACCOUNT           @"KACCOUNT"
+#define KPASSWORD         @"KPASSWORD"
+
 
 #define SERVER_IP [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP]
 #define SERVER_PORT [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERPORT]

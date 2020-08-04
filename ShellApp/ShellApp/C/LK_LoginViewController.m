@@ -10,14 +10,14 @@
 #import "MBProgressHUD.h"
 #import "PolicyViewController.h"
 #import "SettingView.h"
-
+#import <AFNetworking.h>
 #define iLoginTime 30
 
 @interface LK_LoginViewController ()
 @property (nonatomic, strong) UIButton *settingButton;
 @property (nonatomic,strong) UIImageView *bgView;
-@property (nonatomic, strong) UIImageView *bgIconView;
-@property (nonatomic, strong) UIImageView *logoIconView;
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *detailLabel;
 @property (nonatomic, strong) UITextField *emailFiled;
 @property (nonatomic, strong) UITextField *pwdFiled;
 @property (nonatomic,strong) UIButton *remeberButton;
@@ -39,10 +39,18 @@
     [super viewWillAppear:animated];
     
     if (self.emailFiled != nil && ![self.emailFiled isKindOfClass:[NSNull class]]) {
-        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:KACCOUNT] length] > 0) {
+            _emailFiled.text = [[NSUserDefaults standardUserDefaults] valueForKey:KACCOUNT];
+        }else {
+            _emailFiled.text = @"";
+        }
     }
     if (self.pwdFiled != nil && ![self.pwdFiled isKindOfClass:[NSNull class]]) {
-        
+        if ([[[NSUserDefaults standardUserDefaults] valueForKey:KPASSWORD] length] > 0) {
+            self.pwdFiled.text = [[NSUserDefaults standardUserDefaults] valueForKey:KACCOUNT];
+        }else {
+            self.pwdFiled.text = @"";
+        }
     }
     if (self.emailFiled.text.length > 0 && self.pwdFiled.text.length > 0) {
             [self loginClicked];
@@ -59,8 +67,9 @@
 #pragma mark ----- UI
 - (void)drawUIWithComplete{
     [self.view addSubview:self.bgView];
+    [self.view addSubview:self.titleLabel];
+    [self.view addSubview:self.detailLabel];
     [self.view addSubview:self.settingButton];
-    [self.view addSubview:self.logoIconView];
     [self.view addSubview:self.emailFiled];
     [self.view addSubview:self.pwdFiled];
     [self.view addSubview:self.loginBtn];
@@ -68,7 +77,7 @@
 -(UIImageView *)bgView{
     if (!_bgView) {
         _bgView = [[UIImageView alloc]initWithFrame:self.view.frame];
-        _bgView.image = [UIImage imageNamed:@"back"];
+        _bgView.backgroundColor = RGB(242.0, 242.0, 242.0);
     }
     return _bgView;
 }
@@ -83,42 +92,48 @@
 }
 
 - (void)showServer {
-     [self.view endEditing:YES];
-       SettingView *settingView = [[SettingView alloc] initWithTitle:@"请设置服务器" cancelBtn:@"取消" sureBtn:@"确定" btnClickBlock:^(NSInteger index,NSString *ipStr,NSString *firstText) {
-           if (index == 0) {
-               NSLog(@"取消");
-           }else if (index == 1){
-               [[NSUserDefaults standardUserDefaults] setObject:ipStr forKey:KSERVERIP];
-               [[NSUserDefaults standardUserDefaults] setObject:firstText forKey:KSERVERPORT];
-               [[NSUserDefaults standardUserDefaults] synchronize];
-               NSString *port = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERPORT];
-               NSString *ip = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
-               NSLog(@"ip=%@,终端端口=%@",ip,port);
-           }
-       }];
-       [settingView show];
-}
-
-- (UIImageView *)logoIconView {
-    if (!_logoIconView) {
-        _logoIconView = [[UIImageView alloc] init];
-        _logoIconView.width = GetWidthNum(150.f);
-        _logoIconView.height = GetWidthNum(150.f);
-        _logoIconView.centerX = self.view.width/2.f;
-        _logoIconView.y = STATUS_BAR_HEIGHT + GetWidthNum(60.f);
-        if (IS_IPHONE_X || IS_IPHONE_Xr || IS_IPHONE_Xs || IS_IPHONE_Xs_Max) {
-            _logoIconView.y = STATUS_BAR_HEIGHT + GetWidthNum(120.f);
+    [self.view endEditing:YES];
+    SettingView *settingView = [[SettingView alloc] initWithTitle:@"请设置服务器" cancelBtn:@"取消" sureBtn:@"确定" btnClickBlock:^(NSInteger index,NSString *ipStr,NSString *firstText) {
+        if (index == 0) {
+            NSLog(@"取消");
+        }else if (index == 1){
+            [[NSUserDefaults standardUserDefaults] setObject:ipStr forKey:KSERVERIP];
+            [[NSUserDefaults standardUserDefaults] setObject:firstText forKey:KSERVERPORT];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *port = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERPORT];
+            NSString *ip = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
+            NSLog(@"ip=%@,终端端口=%@",ip,port);
         }
-        _logoIconView.image = [UIImage imageNamed:@"logo"];
-    }
-    return _logoIconView;
+    }];
+    [settingView show];
 }
 
+-(UILabel *)titleLabel{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, STATUS_BAR_HEIGHT + GetWidthNum(80.f), SCREENWIDTH, GetWidthNum(60.f))];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.font = [UIFont systemFontOfSize:30];
+        _titleLabel.text = @"海绵城市";
+    }
+    return _titleLabel;
+}
+
+-(UILabel *)detailLabel{
+    if (!_detailLabel) {
+        _detailLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.titleLabel.frame), SCREENWIDTH, GetWidthNum(30.f))];
+        _detailLabel.textAlignment = NSTextAlignmentCenter;
+        _detailLabel.textColor = [UIColor grayColor];
+        _detailLabel.font = [UIFont systemFontOfSize:16];
+        _detailLabel.text = @"徐州海绵城市信息管理系统";
+    }
+    return _detailLabel;
+}
 
 - (UITextField *)emailFiled {
     if (!_emailFiled) {
         _emailFiled = [self getTextFieldWithplaceText:@"账号" withImageName:@"Account-number"];
-        _emailFiled.frame = CGRectMake(_iMargin, self.logoIconView.bottom + GetHeightNum(80.f), SCREENWIDTH - _iMargin * 2, GetWidthNum(46));
+        _emailFiled.frame = CGRectMake(_iMargin, self.detailLabel.bottom + GetHeightNum(60.f), SCREENWIDTH - _iMargin * 2, GetWidthNum(46));
     }
     return _emailFiled;
 }
@@ -139,9 +154,9 @@
     textField.layer.borderColor = [UIColor whiteColor].CGColor;
     textField.layer.borderWidth = .5f;
     textField.layer.cornerRadius = 5.0f;
-    textField.textColor = [UIColor whiteColor];
+    textField.textColor = [UIColor blackColor];
     textField.font = [UIFont systemFontOfSize:16];
-    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeText attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeText attributes:@{NSForegroundColorAttributeName: [UIColor grayColor]}];
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GetWidthNum(34), GetWidthNum(20))];
     UIImageView *headView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, GetWidthNum(18), GetWidthNum(18))];
     headView.image = [UIImage imageNamed:imageName];
@@ -149,17 +164,18 @@
     textField.leftView = leftView;
     textField.leftViewMode = UITextFieldViewModeAlways;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    textField.backgroundColor = [UIColor whiteColor];
     return textField;
 }
 
 - (UIButton *)loginBtn {
     if (!_loginBtn) {
         _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginBtn.frame = CGRectMake(_iMargin, CGRectGetMaxY(_pwdFiled.frame) + GetWidthNum(30), SCREENWIDTH - _iMargin * 2, CGRectGetHeight(_emailFiled.frame));
+        _loginBtn.frame = CGRectMake(_iMargin, CGRectGetMaxY(_pwdFiled.frame) + GetWidthNum(60), SCREENWIDTH - _iMargin * 2, CGRectGetHeight(_emailFiled.frame));
         _loginBtn.layer.cornerRadius = 5.0f;
         [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_loginBtn setBackgroundColor:[UIColor blueColor]];
+        [_loginBtn setBackgroundColor:RGB(58.0, 102.0, 150.0)];
         [_loginBtn addTarget:self action:@selector(loginClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginBtn;
@@ -168,15 +184,52 @@
 #pragma mark=========== 网络请求====================
 //确定
 - (void)loginClicked{
-    _emailStr = _emailFiled.text;
-    _pswStr = _pwdFiled.text;
+    self.emailStr = _emailFiled.text;
+    self.pswStr = _pwdFiled.text;
     if (_emailStr.length == 0 || _pswStr.length == 0) {
         [self showAlertWithTitle:@"提示" Infomation:@"账号或密码不可为空" shoeInViewController:self completedAction:nil];
         return;
     }
-    [self presentTabarVC];
-
-
+    __block typeof(self)weakSelf = self;
+    MBProgressHUD *requestHub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    requestHub.mode = MBProgressHUDModeIndeterminate;
+    requestHub.label.text = @"数据加载中。。。";
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager.requestSerializer setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *serverIp = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
+        if (!serverIp) {
+            serverIp = @"yfstrug.wicp.net";
+        }
+        
+        NSString *requestUrlString = [NSString stringWithFormat:@"http://%@/iwa-admin/app/login/loginSub.htm",serverIp];
+        NSDictionary *paramDic = @{@"uac":self.emailStr,
+                                   @"upd":self.pswStr
+        };
+        [manager GET:requestUrlString parameters:paramDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [requestHub removeFromSuperview];
+            NSString *result = [[NSString alloc] initWithData:responseObject
+                                                     encoding:NSUTF8StringEncoding];
+            NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *resultDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                      options:NSJSONReadingMutableContainers
+                                                                        error:&err];
+            NSLog(@"%@",resultDic);
+            if ([resultDic[@"status"] integerValue] == 200) {
+                [[NSUserDefaults standardUserDefaults] setValue:self.emailStr forKey:KACCOUNT];
+                [[NSUserDefaults standardUserDefaults] setValue:self.pswStr forKey:KPASSWORD];
+                [weakSelf presentTabarVC];
+            }else{
+                [weakSelf showAlertWithTitle:@"提示" Infomation:resultDic[@"msg"] shoeInViewController:self completedAction:nil];
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+            [weakSelf showAlertWithTitle:@"提示" Infomation:@"网络请求错误" shoeInViewController:self completedAction:nil];
+        }];
+    });
 }
 
 -(void)showAlertWithTitle:(NSString *)Title

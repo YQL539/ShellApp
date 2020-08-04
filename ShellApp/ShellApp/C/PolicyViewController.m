@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"";
-    NSURL *url = [NSURL URLWithString:@"http://yfstrug.wicp.net/iwa-admin//app/login/login.htm"];
+    NSURL *url = [NSURL URLWithString:@"http://yfstrug.wicp.net/iwa-admin/app/index/home.htm"];
 //    if (![self.urlStr containsString:@"http"]) {
 //        self.urlStr = [NSString stringWithFormat:@"http://%@",self.urlStr];
 //    }
@@ -36,6 +36,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"exit"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]style:UIBarButtonItemStylePlain target:self action:@selector(popToRoot)];
 }
 -(void)popToRoot {
+    [[NSUserDefaults standardUserDefaults] setValue:@"" forKey:KPASSWORD];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)viewDidAppear:(BOOL)animated
