@@ -85,7 +85,7 @@
 - (UIButton *)settingButton {
     if (!_settingButton) {
         _settingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _settingButton.frame = CGRectMake(GetWidthNum(5), STATUS_BAR_HEIGHT, GetWidthNum(50), GetWidthNum(50));
+        _settingButton.frame = CGRectMake(SCREENWIDTH - GetWidthNum(50) - GetWidthNum(5), STATUS_BAR_HEIGHT, GetWidthNum(50), GetWidthNum(50));
         [_settingButton setImage:[UIImage imageNamed:@"setting"] forState:UIControlStateNormal];
         [_settingButton addTarget:self action:@selector(showServer) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -193,10 +193,11 @@
     __block typeof(self)weakSelf = self;
     MBProgressHUD *requestHub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     requestHub.mode = MBProgressHUDModeIndeterminate;
-    requestHub.label.text = @"数据加载中。。。";
+    requestHub.label.text = @"正在登录";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager.requestSerializer setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    manager.requestSerializer.timeoutInterval = 15.f;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *serverIp = [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP];
@@ -227,6 +228,7 @@
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
+            [requestHub removeFromSuperview];
             [weakSelf showAlertWithTitle:@"提示" Infomation:@"网络请求错误" shoeInViewController:self completedAction:nil];
         }];
     });
@@ -246,9 +248,10 @@
 -(void)presentTabarVC{
     dispatch_async(dispatch_get_main_queue(), ^{
         PolicyViewController *webviewVC = [[PolicyViewController alloc] init];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:webviewVC];
-        nav.modalPresentationStyle = UIModalPresentationFullScreen;
-        [self presentViewController:nav animated:YES completion:^{
+        webviewVC.userName = self.emailStr;
+        webviewVC.userPsw = self.pswStr;
+        webviewVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self presentViewController:webviewVC animated:YES completion:^{
             self.emailFiled.text = @"";
             self.pwdFiled.text = @"";
         }];

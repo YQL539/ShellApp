@@ -11,5 +11,7 @@
 
 @interface PolicyViewController : UIViewController
 @property (nonatomic,copy) NSString *urlStr;
+@property (nonatomic,copy) NSString *userName;
+@property (nonatomic,copy) NSString *userPsw;
 @end
 

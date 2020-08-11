@@ -20,7 +20,7 @@
 
 #define SERVER_IP [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERIP]
 #define SERVER_PORT [[NSUserDefaults standardUserDefaults] objectForKey:KSERVERPORT]
-#define SERVER_HTTP [NSString stringWithFormat:@"http://%@:%@/VCCP",SERVER_IP,SERVER_PORT]
+#define SERVER_HTTP [NSString stringWithFormat:@"http://%@:%@",SERVER_IP,SERVER_PORT]
 
 //屏幕宽高
 #define SCREENWIDTH ([[UIScreen mainScreen] bounds].size.width)

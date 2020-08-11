@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,7 +14,6 @@
 		D680423E24D8009200526412 /* SettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D680423D24D8009200526412 /* SettingView.m */; };
 		D680424024D944A600526412 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = D680423F24D944A600526412 /* Podfile */; };
 		D699AD5024BD46DD00DC5F16 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D699AD4F24BD46DD00DC5F16 /* AppDelegate.m */; };
-		D699AD5624BD46DD00DC5F16 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D699AD5524BD46DD00DC5F16 /* ViewController.m */; };
 		D699AD5924BD46DD00DC5F16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D699AD5724BD46DD00DC5F16 /* Main.storyboard */; };
 		D699AD5B24BD46DE00DC5F16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D699AD5A24BD46DE00DC5F16 /* Assets.xcassets */; };
 		D699AD5E24BD46DE00DC5F16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D699AD5C24BD46DE00DC5F16 /* LaunchScreen.storyboard */; };
@@ -25,6 +24,7 @@
 		D699AD8A24BD4B5500DC5F16 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D699AD8724BD4B5500DC5F16 /* MBProgressHUD.m */; };
 		D699AD8B24BD4B5500DC5F16 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D699AD8824BD4B5500DC5F16 /* LICENSE */; };
 		D699AD8E24BD4D6F00DC5F16 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D699AD8D24BD4D6F00DC5F16 /* WebKit.framework */; };
+		D6D4DDD824E247F400826580 /* WeakWebViewScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D4DDD724E247F400826580 /* WeakWebViewScriptMessageDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,6 @@
 		D699AD4B24BD46DD00DC5F16 /* 智慧海绵.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "智慧海绵.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D699AD4E24BD46DD00DC5F16 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D699AD4F24BD46DD00DC5F16 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D699AD5424BD46DD00DC5F16 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D699AD5524BD46DD00DC5F16 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D699AD5824BD46DD00DC5F16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D699AD5A24BD46DE00DC5F16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D699AD5D24BD46DE00DC5F16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -80,6 +78,8 @@
 		D699AD8824BD4B5500DC5F16 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		D699AD8924BD4B5500DC5F16 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D699AD8D24BD4D6F00DC5F16 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D6D4DDD624E247F400826580 /* WeakWebViewScriptMessageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeakWebViewScriptMessageDelegate.h; sourceTree = "<group>"; };
+		D6D4DDD724E247F400826580 /* WeakWebViewScriptMessageDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeakWebViewScriptMessageDelegate.m; sourceTree = "<group>"; };
 		EB69011B7A2D3C13301ECC51 /* Pods-ShellApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShellApp.debug.xcconfig"; path = "Target Support Files/Pods-ShellApp/Pods-ShellApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,7 +116,6 @@
 				EB69011B7A2D3C13301ECC51 /* Pods-ShellApp.debug.xcconfig */,
 				071DDA7052081DDC2E06DF06 /* Pods-ShellApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -146,10 +145,10 @@
 			children = (
 				D60F27B724C146C200B6B828 /* LK_LoginViewController.h */,
 				D60F27B824C146C200B6B828 /* LK_LoginViewController.m */,
-				D699AD5424BD46DD00DC5F16 /* ViewController.h */,
-				D699AD5524BD46DD00DC5F16 /* ViewController.m */,
 				D699AD8424BD497F00DC5F16 /* PolicyViewController.h */,
 				D699AD8324BD497F00DC5F16 /* PolicyViewController.m */,
+				D6D4DDD624E247F400826580 /* WeakWebViewScriptMessageDelegate.h */,
+				D6D4DDD724E247F400826580 /* WeakWebViewScriptMessageDelegate.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -410,12 +409,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D699AD8524BD497F00DC5F16 /* PolicyViewController.m in Sources */,
-				D699AD5624BD46DD00DC5F16 /* ViewController.m in Sources */,
 				D699AD8A24BD4B5500DC5F16 /* MBProgressHUD.m in Sources */,
 				D60F27B924C146C200B6B828 /* LK_LoginViewController.m in Sources */,
 				D60F27BC24C1476400B6B828 /* UIView+XDFrame.m in Sources */,
 				D680423E24D8009200526412 /* SettingView.m in Sources */,
 				D699AD5024BD46DD00DC5F16 /* AppDelegate.m in Sources */,
+				D6D4DDD824E247F400826580 /* WeakWebViewScriptMessageDelegate.m in Sources */,
 				D60F27C124C148F400B6B828 /* CommonUtil.m in Sources */,
 				D699AD6124BD46DE00DC5F16 /* main.m in Sources */,
 			);
